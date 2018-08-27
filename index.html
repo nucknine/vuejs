@@ -16,7 +16,7 @@
                     class="healthbar text-center"
                     style="background-color: green; margin: 0; color: white;"
                     :style="getMyHP">
-
+                {{myHp}}
                 </div>
             </div>
         </div>
@@ -27,7 +27,7 @@
                     class="healthbar text-center"
                     style="background-color: green; margin: 0; color: white;"
                     :style="getMonsterHP">
-
+                {{monsterHp}}
                 </div>
             </div>
         </div>
@@ -50,10 +50,11 @@
             <ul>
                 <li v-for="log in logs">
                     <div class="monster-turn">
-                        monster hits player for {{log.me}}
+                        monster hits player for {{ log.me }}
                     </div>
                     <div class="player-turn">
-                        player hits monster for {{log.monster}}
+                        <span v-if="log.meHeal">player heals for {{ log.meHeal }}</span>
+                        <span v-if="log.monster">player hits monster for {{ log.monster }}</span>
                     </div>
                 </li>
             </ul>
