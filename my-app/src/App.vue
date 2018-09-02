@@ -1,28 +1,64 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+    <div class="container">
+        <h2>Quotes Added</h2>
+        <div class="container">
+            <div class="bar" :style="barStyle">{{quoteCounter}}/{{quoteLimit}}</div>
+        </div>
+        <p>{{ newQuote }}</p>
+        <div class="container input-box">
+            <div class="form-group">
+                <label for="textarea"> textarea</label>
+                <textarea
+                    v-model="newQuote"
+                    class="form-control"
+                    id="textarea"
+                    rows="3"></textarea>
+                <button @click="addQuote">Add Quote</button>
+            </div>
+        </div>
+
+        <div class="container quotes-box">
+            <quote></quote>
+            <quote></quote>
+            <quote></quote>
+        </div>
+    </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Quote from './components/QuoteComponent.vue';
 
 export default {
-  name: 'app',
-  components: {
-    HelloWorld
-  }
+    data: function() {
+        return {
+            newQuote: '',
+            quoteCounter: 0,
+            quoteLimit: 10,
+            barWidth: 0
+        }
+    },
+    methods: {
+        addQuote() {
+            console.log(this.newQuote);
+
+            this.newQuote = '';
+            this.quoteCounter++;
+            this.barWidth=+10;
+        },
+    },
+    computed: {
+        barStyle() {
+            width: this.barWidth + '%'
+        }
+    },
+    components: {
+        'quote': Quote
+    }
 }
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+.bar {
+    background-color: lightblue;
 }
 </style>
