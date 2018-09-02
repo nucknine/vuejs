@@ -1,83 +1,50 @@
 <template>
     <div class="container">
-        <h2>Quotes Added</h2>
-        <div class="progress">
-            <div class="progress-bar progress-bar-striped progress-bar-animated"
-            role="progressbar"
-            :aria-valuenow="barWidth"
-            aria-valuemin="0"
-            aria-valuemax="100"
-            :style="barStyle">
-                {{quoteCounter}}/{{quoteLimit}}
-            </div>
-        </div>
-        <div class="container input-box">
-            <div class="form-group">
-                <label for="textarea">Text your quote</label>
-                <textarea
-                    v-model="newQuote"
-                    class="form-control"
-                    id="textarea"
-                    rows="3"></textarea>
-            </div>
-            <div class="form-group">
-                <button class="btn btn-primary" @click="addQuote">Add Quote</button>
-            </div>
-        </div>
-
-        <div class="container quotes-box">
+        <quote-header :quoteLimit="quoteLimit">
+        </quote-header>
+        <new-quote
+            :quotesArray="quotesArray">
+        </new-quote>
+        <all-quotes>
             <quote
-                style="border: 20px solid yellow;"
                 v-for="(quote, i) in quotesArray"
                 :index="i"
-                :key="quote"
-                @deleteQ="deleteQuote($event)"
-                >
-                {{i + ' ' + quote}}
+                :key="i+quote"
+                @deleteQ="deleteQuote($event)">
+                {{quote}}
             </quote>
-        </div>
+        </all-quotes>
     </div>
 </template>
 
 <script>
 import Quote from './components/QuoteComponent.vue';
+import AllQuotes from './components/AllQuotesComponent.vue';
+import NewQuote from './components/NewQuoteComponent.vue';
+import Header from './components/HeaderComponent.vue';
+
+import { EventBus } from './main.js'
 
 export default {
     data: function() {
         return {
             newQuote: '',
-            quoteCounter: 0,
             quoteLimit: 10,
-            barWidth: 0,
             quotesArray: []
         }
     },
     methods: {
         deleteQuote(i) {
             this.quotesArray.splice(i, 1);
-            this.quoteCounter--;
-            this.barWidth -= 10;
-        },
-        addQuote() {
-            if(this.newQuote == '') {
-                return
-            } else {
-                this.quoteCounter++;
-                this.quotesArray.push(this.newQuote);
-                this.barWidth += 10;
-                this.newQuote = '';
-            }
-        },
-    },
-    computed: {
-        barStyle() {
-            return {
-                width: this.barWidth + '%'
-            }
-        },
+            EventBus.decreseCnt();
+            EventBus.barWidth -= 10;
+        }
     },
     components: {
-        'quote': Quote
+        'quote': Quote,
+        'all-quotes': AllQuotes,
+        'new-quote': NewQuote,
+        'quote-header': Header,
     }
 }
 </script>
@@ -85,8 +52,5 @@ export default {
 <style>
 .bar-box {
     border: 1px solid #ccc;
-}
-.bar {
-    background-color: lightblue;
 }
 </style>

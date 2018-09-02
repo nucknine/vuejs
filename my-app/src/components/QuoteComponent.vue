@@ -1,5 +1,5 @@
 <template>
-    <div class="container" @click="deleteQuote(index)">
+    <div class="col-sm-3" @click="deleteQuote(index)">
         <slot></slot>
     </div>
 </template>
@@ -9,7 +9,6 @@
         props: ['index'],
         data: function() {
             return {
-                // quote: ''
             }
         },
         methods: {
