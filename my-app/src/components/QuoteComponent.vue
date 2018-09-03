@@ -1,6 +1,10 @@
 <template>
-    <div class="col-sm-3" @click="deleteQuote(index)">
-        <slot></slot>
+    <div class="col-sm-6 col-md-4 col-lg-3">
+        <div class="card">
+            <div class="card-body quote">
+                <slot></slot>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -11,19 +15,21 @@
             return {
             }
         },
-        methods: {
-            deleteQuote(i){
-                this.$emit('deleteQ', i);
-            }
-        }
+        methods: {}
     }
 </script>
 
-<style lang="scss" scoped>
-    div {
+<style lang="scss">
+    .card-body {
         font-family: 'Arizonia','Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
         border: 1px solid gray;
         font-size: 48px;
+    }
+
+    .quote {
         cursor: pointer;
+        &:hover {
+            background-color: crimson;
+        }
     }
 </style>
