@@ -1,5 +1,12 @@
 <template>
-  <div>{{msg}}</div>
+  <div class="container">
+    <h1>Super Quiz</h1>
+    <div class="row">
+      <div class="col-sm-6 alert-success">
+        test
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
