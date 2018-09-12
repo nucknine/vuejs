@@ -1,6 +1,8 @@
 <template>
     <div class="col-sm-6 text-center">
-        <button class="btn btn-default btn-primary">answer</button>
+        <div class="btn btn-default btn-primary">
+            <slot></slot>
+        </div>
     </div>
 </template>
 
@@ -12,6 +14,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
     div {
-        margin: 20px 0 20px 0;
+        margin: 0 0 20px 0;
+        min-width: 70px;
     }
 </style>
