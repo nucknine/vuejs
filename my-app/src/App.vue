@@ -2,13 +2,13 @@
   <div class="container">
     <div class="row">
       <div class="col-sm-12 text-center"><h1>Super Quiz</h1></div>
-      <app-all-answers :question="question">
-        <app-answer
-          v-for="(answ, index) in answers"
-          :key="answ">
-          {{ index == operation ? answer : answ }}
-        </app-answer>
+      <app-all-answers
+        :question="question"
+        :operation="operation"
+        :answers="answers"
+        :answer="answer">
       </app-all-answers>
+      <app-success></app-success>
     </div>
   </div>
 </template>
@@ -16,7 +16,7 @@
 <script>
 
 import AllAnswers from './components/AllAnswersComponent'
-import Answer from './components/AnswerComponent'
+import Success from './components/SuccessComponent'
 
 export default {
   data () {
@@ -55,7 +55,7 @@ export default {
   },
   components: {
     'app-all-answers': AllAnswers,
-    'app-answer': Answer
+    'app-success': Success
   }
 }
 </script>
