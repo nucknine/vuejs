@@ -31,9 +31,9 @@ export default {
   methods: {
     checkAnswer (ev) {
       if (ev.target.innerText === this.answer + '') {
-        console.log('right')
+        this.$emit('rightAnswer', true)
       } else {
-        console.log('not')
+        window.confirm('Answer isnt right')
       }
     }
   }

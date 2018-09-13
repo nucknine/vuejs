@@ -2,13 +2,17 @@
   <div class="container">
     <div class="row">
       <div class="col-sm-12 text-center"><h1>Super Quiz</h1></div>
-      <app-all-answers
-        :question="question"
-        :operation="operation"
-        :answers="answers"
-        :answer="answer">
-      </app-all-answers>
-      <app-success></app-success>
+      <transition name="flip" mode="out-in">
+        <component
+          @changeToQuiz="newQuiz"
+          @rightAnswer="selected = 'app-success'"
+          :question="question"
+          :operation="operation"
+          :answers="answers"
+          :answer="answer"
+          :is="selected">
+        </component>
+      </transition>
     </div>
   </div>
 </template>
@@ -21,16 +25,31 @@ import Success from './components/SuccessComponent'
 export default {
   data () {
     return {
-      firstNumber: Math.floor(Math.random() * 30),
-      secondNumber: Math.floor(Math.random() * 30),
-      operation: Math.floor(Math.random() * 4),
+      selected: '',
+      firstNumber: 0,
+      secondNumber: 0,
+      operation: '',
       answers: []
     }
   },
-  created () {
-    for (let i = 0; i < 4; i++) {
-      this.answers.push(Math.floor(Math.random() * 100))
+  methods: {
+    newQuiz () {
+      this.init()
+    },
+    init () {
+      this.answers = []
+      this.selected = 'app-all-answers'
+      this.firstNumber = Math.floor(Math.random() * 30)
+      this.secondNumber = Math.floor(Math.random() * 30)
+      this.operation = Math.floor(Math.random() * 4)
+
+      for (let i = 0; i < 4; i++) {
+        this.answers.push(Math.floor(Math.random() * 100))
+      }
     }
+  },
+  created () {
+    this.init()
   },
   computed: {
     question () {
@@ -69,4 +88,34 @@ export default {
   color: #2c3e50;
   margin-top: 60px;
 }
+
+.flip-enter {
+  opacity: 0;
+}
+
+.flip-enter-active {
+  /* animation: flip-in 1s ease-out forwards; */
+  transition: opacity 1s ease-in-out;
+  opacity: 1;
+}
+
+.flip-leave {
+  opacity: 1;
+}
+
+.flip-leave-active {
+  animation: flip-in 1s ease-out forwards;
+  transition: opacity 1s ease-in-out;
+  opacity: 0;
+}
+
+@keyframes flip-in {
+        from {
+            transform: rotate3d(0, 1, 0, 0deg);
+        }
+        to {
+            transform: rotate3d(0, 1, 0, 180deg);
+        }
+    }
+
 </style>
