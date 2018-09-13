@@ -1,15 +1,12 @@
 <template>
   <div class="container">
     <div class="row">
-      <div class="col-sm-12 text-center"><h1>Super Quiz</h1></div>
+      <app-quiz-header></app-quiz-header>
+      <hr>
       <transition name="flip" mode="out-in">
         <component
           @changeToQuiz="newQuiz"
           @rightAnswer="selected = 'app-success'"
-          :question="question"
-          :operation="operation"
-          :answers="answers"
-          :answer="answer"
           :is="selected">
         </component>
       </transition>
@@ -21,61 +18,25 @@
 
 import AllAnswers from './components/AllAnswersComponent'
 import Success from './components/SuccessComponent'
+import Header from './components/QuizHeaderComponent'
 
 export default {
   data () {
     return {
-      selected: '',
-      firstNumber: 0,
-      secondNumber: 0,
-      operation: '',
-      answers: []
+      selected: 'app-all-answers'
     }
   },
   methods: {
-    newQuiz () {
-      this.init()
-    },
-    init () {
-      this.answers = []
-      this.selected = 'app-all-answers'
-      this.firstNumber = Math.floor(Math.random() * 30)
-      this.secondNumber = Math.floor(Math.random() * 30)
-      this.operation = Math.floor(Math.random() * 4)
-
-      for (let i = 0; i < 4; i++) {
-        this.answers.push(Math.floor(Math.random() * 100))
-      }
-    }
-  },
-  created () {
-    this.init()
-  },
-  computed: {
-    question () {
-      let operation
-      switch (this.operation) {
-        case 0 : operation = '-'; break
-        case 1 : operation = '+'; break
-        case 2 : operation = '*'; break
-        case 3 : operation = '%'; break
-      }
-      return this.firstNumber + ' ' + operation + ' ' + this.secondNumber
-    },
-    answer () {
-      switch (this.operation) {
-        case 0 : return this.firstNumber - this.secondNumber
-        case 1 : return this.firstNumber + this.secondNumber
-        case 2 : return this.firstNumber * this.secondNumber
-        case 3 : return this.firstNumber % this.secondNumber
-        default : return 0
-      }
+    newQuiz(){
+      this.selected = 'app-all-answers';
     }
   },
   components: {
     'app-all-answers': AllAnswers,
-    'app-success': Success
+    'app-success': Success,
+    'app-quiz-header': Header
   }
+
 }
 </script>
 
@@ -90,12 +51,12 @@ export default {
 }
 
 .flip-enter {
-  opacity: 0;
+  opacity: 1;
 }
 
 .flip-enter-active {
-  /* animation: flip-in 1s ease-out forwards; */
-  transition: opacity 1s ease-in-out;
+  animation: flip-out .5s ease-out forwards;
+  transition: opacity .5s ease-in-out;
   opacity: 1;
 }
 
@@ -104,17 +65,26 @@ export default {
 }
 
 .flip-leave-active {
-  animation: flip-in 1s ease-out forwards;
-  transition: opacity 1s ease-in-out;
-  opacity: 0;
+  animation: flip-in .5s ease-out forwards;
+  transition: opacity .5s ease-in-out;
+  opacity: 1;
 }
 
 @keyframes flip-in {
         from {
-            transform: rotate3d(0, 1, 0, 0deg);
+            transform: rotateY(0deg);
         }
         to {
-            transform: rotate3d(0, 1, 0, 180deg);
+            transform: rotateY(90deg);
+        }
+    }
+
+@keyframes flip-out {
+        from {
+            transform: rotateY(90deg);
+        }
+        to {
+            transform: rotateY(0deg);
         }
     }
 
