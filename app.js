@@ -25,7 +25,7 @@ var vm = new Vue({
                 me: this.dmgToPlayer,
                 monster: this.dmgToMonster
             }
-            this.logs.push(log);
+            this.logs.unshift(log);
             this.checkHp();
         },
         specialAttack(){
@@ -37,7 +37,7 @@ var vm = new Vue({
                 me: this.dmgToPlayer,
                 monster: this.dmgToMonster
             }
-            this.logs.push(log);
+            this.logs.unshift(log);
             this.checkHp();
         },
         heal() {
@@ -50,7 +50,7 @@ var vm = new Vue({
                 me: this.dmgToPlayer,
                 monster: false
             }
-            this.logs.push(log)
+            this.logs.unshift(log)
             this.checkHp();
         },
         giveUp() {
