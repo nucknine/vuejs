@@ -22,13 +22,19 @@
         </ul>
       </div>
     </div>
+    <app-header></app-header>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
+import Header from './components/Header'
 
 export default {
   name: 'app',
+  components: {
+    'app-header': Header
+  },
   data () {
     return {
       user: {
@@ -37,7 +43,7 @@ export default {
       },
       users: [],
       resource: {},
-      node: 'data',
+      node: 'data'
       // node: 'alternative'
     }
   },
@@ -93,8 +99,6 @@ export default {
           }
         })
     }
-  },
-  components: {
   }
 }
 </script>
