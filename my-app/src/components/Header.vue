@@ -20,12 +20,12 @@
       </ul>
       <p class="navbar-text navbar-right" style="font-weight: bold">Funds: {{ funds }}$</p>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#">End Day</a></li>
+        <li><a href="#" @click.prevent="endDay(1)">End Day</a></li>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Save & Load<span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="#">Save Data</a></li>
-            <li><a href="#">Load Data</a></li>
+            <li><a href="#" @click.prevent="saveData">Save Data</a></li>
+            <li><a href="#" @click.prevent="loadData">Load Data</a></li>
           </ul>
         </li>
       </ul>
@@ -35,17 +35,44 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
   data () {
     return {
+      resource: {}
     }
   },
   computed: {
     ...mapGetters({
-      funds: 'getFunds'
+      funds: 'getFunds',
+      userStocks: 'getUserStocks'
     })
+  },
+  methods: {
+    ...mapActions({
+      endDay: 'endDayAsync',
+      updateUser: 'updateUserAsync'
+    }),
+    saveData () {
+      let data = {
+        funds: this.funds,
+        userStocks: this.userStocks
+      }
+      this.resource.update(data).then((res, err) => {
+        console.log(err)
+      })
+    },
+    loadData () {
+      this.resource.get()
+        .then(res => res.json())
+        .then(res => {
+          this.updateUser({ userFunds: res.funds, userStocks: res.userStocks })
+        })
+    }
+  },
+  created () {
+    this.resource = this.$resource('data.json')
   }
 }
 </script>

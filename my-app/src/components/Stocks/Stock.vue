@@ -43,6 +43,7 @@ export default {
         stockQuantity: this.quantity
       }
       this.$store.dispatch('buyStocksAsync', payload)
+      this.quantity = 0
     }
   }
 }

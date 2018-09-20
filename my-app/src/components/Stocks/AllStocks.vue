@@ -10,14 +10,9 @@
 <script>
 import Stock from './Stock'
 export default {
-  data () {
-    return {
-      stockArr: [
-        { name: 'BMW', price: 75 },
-        { name: 'Apple', price: 250 },
-        { name: 'Google', price: 200 },
-        { name: 'Twitter', price: 25 }
-      ]
+  computed: {
+    stockArr () {
+      return this.$store.getters.getAllStocks
     }
   },
   components: {

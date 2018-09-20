@@ -5,7 +5,7 @@
           <strong>
               {{ stock.name }}
           </strong>
-          (Price: {{ stock.price }} | Quantity: {{ stock.quantity }})
+          (Price: {{ price }} | Quantity: {{ stock.quantity }})
         </div>
         <div class="panel-body">
           <div class="row">
@@ -17,7 +17,7 @@
                 v-model="quantity">
             </div>
             <div class="col-sm-12 col-md-offset-6 col-md-2">
-              <button @click="buyStocks" class="btn btn-default btn-danger">Sell</button>
+              <button @click="sellStocks" class="btn btn-default btn-danger">Sell</button>
             </div>
           </div>
         </div>
@@ -28,7 +28,7 @@
 import { mapActions } from 'vuex'
 
 export default {
-  props: ['stock'],
+  props: ['stock', 'price'],
   data () {
     return {
       quantity: 0
@@ -36,13 +36,14 @@ export default {
   },
   methods: {
     ...mapActions({}),
-    buyStocks () {
+    sellStocks () {
       let payload = {
-        stockSumm: this.quantity * this.stock.price,
+        stockSumm: this.quantity * this.price,
         stockName: this.stock.name,
         stockQuantity: this.quantity
       }
-      this.$store.dispatch('buyStocksAsync', payload)
+      this.$store.dispatch('sellStocksAsync', payload)
+      this.quantity = 0
     }
   }
 }
