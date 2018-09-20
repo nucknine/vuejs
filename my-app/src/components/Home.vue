@@ -1,5 +1,5 @@
 <template>
-  <div class="row">
+  <div>
     <div class="panel panel-default">
       <div class="panel-body">
         <h2>Trade or View your Portfolio</h2>

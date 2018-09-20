@@ -1,25 +1,28 @@
 <template>
-  <div class="col-sm-12 col-md-6">
+  <div class="col-sm-6 col-md-4">
       <div class="panel panel-success">
         <div class="panel-heading">
           <strong>
               {{ stock.name }}
           </strong>
-          (Price: {{ stock.price }})
+          <small>
+            (Price: {{ stock.price }})
+          </small>
         </div>
         <div class="panel-body">
-          <div class="row">
-            <div class="col-sm-12 col-md-4">
+            <div class="pull-left">
               <input
-                type="text"
+                type="number"
                 class="form-control"
                 placeholder="Quantity"
                 v-model="quantity">
             </div>
-            <div class="col-sm-12 col-md-offset-6 col-md-2">
-              <button @click="buyStocks" class="btn btn-default btn-success">Buy</button>
+            <div class="pull-right">
+              <button
+                @click="buyStocks"
+                class="btn btn-success">Buy
+              </button>
             </div>
-          </div>
         </div>
       </div>
     </div>

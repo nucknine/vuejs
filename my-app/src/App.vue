@@ -1,8 +1,10 @@
 <template>
-  <div>
+  <div class="container">
     <app-header></app-header>
-    <div class="container">
-      <router-view></router-view>
+    <div class="row">
+      <div class="col-xs-12">
+        <router-view></router-view>
+      </div>
     </div>
   </div>
 </template>
@@ -31,5 +33,9 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+
+body {
+  padding: 30px;
 }
 </style>

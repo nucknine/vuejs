@@ -1,5 +1,5 @@
 <template>
-  <div class="row">
+  <div>
     <app-stock
       v-for="(stock, i) in stockArr"
       :key="stock + i"
