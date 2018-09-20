@@ -31,19 +31,22 @@ export default {
   props: ['stock', 'price'],
   data () {
     return {
-      quantity: 0
+      quantity: 1
     }
   },
   methods: {
     ...mapActions({}),
     sellStocks () {
+      if (this.quantity === 0) {
+        return
+      }
       let payload = {
         stockSumm: this.quantity * this.price,
         stockName: this.stock.name,
         stockQuantity: this.quantity
       }
       this.$store.dispatch('sellStocksAsync', payload)
-      this.quantity = 0
+      this.quantity = 1
     }
   }
 }

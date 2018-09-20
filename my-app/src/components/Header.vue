@@ -46,18 +46,21 @@ export default {
   computed: {
     ...mapGetters({
       funds: 'getFunds',
-      userStocks: 'getUserStocks'
+      userStocks: 'getUserStocks',
+      allStocks: 'getAllStocks'
     })
   },
   methods: {
     ...mapActions({
       endDay: 'endDayAsync',
-      updateUser: 'updateUserAsync'
+      updateUser: 'updateUserAsync',
+      updateStocks: 'updateStocksAsync'
     }),
     saveData () {
       let data = {
         funds: this.funds,
-        userStocks: this.userStocks
+        userStocks: this.userStocks,
+        allStocks: this.allStocks
       }
       this.resource.update(data).then((res, err) => {
         console.log(err)
@@ -68,6 +71,7 @@ export default {
         .then(res => res.json())
         .then(res => {
           this.updateUser({ userFunds: res.funds, userStocks: res.userStocks })
+          this.updateStocks(res.allStocks)
         })
     }
   },

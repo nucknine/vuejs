@@ -32,11 +32,16 @@ export const store = new Vuex.Store({
       state.user.stocks = payload.userStocks
       state.user.funds = payload.userFunds
     },
+    updateStocks: (state, payload) => {
+      state.allStocks = payload
+    },
     endDay: (state, payload) => {
       function newPrice (price) {
         let num = Math.floor(Math.random() * 30 + 1)
         let op = Math.floor(Math.random() * 2)
-
+        if (price - num < 0) {
+          return price + num
+        }
         switch (op) {
           case 0 : return price + num
           case 1 : return price - num
@@ -75,6 +80,9 @@ export const store = new Vuex.Store({
     }
   },
   actions: {
+    updateStocksAsync: (context, payload) => {
+      context.commit('updateStocks', payload)
+    },
     updateUserAsync: (context, payload) => {
       context.commit('updateUser', payload)
     },
