@@ -1,27 +1,22 @@
 <template>
   <nav class="navbar navbar-default">
   <div class="container-fluid">
-    <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <router-link :to="{name: 'home'}" tag="a" class="navbar-brand" exact>Stock Trader</router-link>
+      <router-link :to="{name: 'home'}" class="navbar-brand">Stock Trader</router-link>
     </div>
 
-    <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+    <div class="collapse navbar-collapse">
       <ul class="nav navbar-nav">
         <router-link :to="{name: 'portfolio'}" active-class="active" tag="li" exact><a>Portfolio<span class="sr-only">(current)</span></a></router-link>
         <router-link :to="{name: 'stocks'}" active-class="active" tag="li" exact><a>Stocks</a></router-link>
       </ul>
-      <p class="navbar-text navbar-right" style="font-weight: bold">Funds: {{ funds | funds-filter }}</p>
+      <strong class="navbar-text navbar-right">Funds: {{ funds | funds-filter }}</strong>
       <ul class="nav navbar-nav navbar-right">
         <li><a href="#" @click.prevent="endDay">End Day</a></li>
-        <li class="dropdown">
+        <li
+          class="dropdown"
+          :class="{open: isDropdownOpen}"
+          @click="isDropdownOpen = !isDropdownOpen">
           <a
             href="#"
             class="dropdown-toggle"
@@ -35,7 +30,7 @@
           </ul>
         </li>
       </ul>
-    </div><!-- /.navbar-collapse -->
+    </div>
   </div><!-- /.container-fluid -->
 </nav>
 </template>
@@ -46,7 +41,8 @@ import { mapGetters, mapActions } from 'vuex'
 export default {
   data () {
     return {
-      resource: {}
+      resource: {},
+      isDropdownOpen: false
     }
   },
   computed: {
@@ -60,10 +56,11 @@ export default {
     ...mapActions({
       endDay: 'endDayAsync',
       updateUser: 'updateUserAsync',
-      updateStocks: 'updateStocksAsync'
+      updateStocks: 'updateStocksAsync',
+      loadDataAsync: 'loadData'
     }),
     saveData () {
-      let data = {
+      const data = {
         funds: this.funds,
         userStocks: this.userStocks,
         allStocks: this.allStocks
@@ -73,12 +70,7 @@ export default {
       })
     },
     loadData () {
-      this.resource.get()
-        .then(res => res.json())
-        .then(res => {
-          this.updateUser({ userFunds: res.funds, userStocks: res.userStocks })
-          this.updateStocks(res.allStocks)
-        })
+      this.loadDataAsync()
     }
   },
   created () {

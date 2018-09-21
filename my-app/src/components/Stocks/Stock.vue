@@ -67,4 +67,3 @@ export default {
   background-color: crimson;
 }
 </style>
-

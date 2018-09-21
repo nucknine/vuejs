@@ -18,18 +18,7 @@ const mutations = {
     state.allStocks = payload
   },
   endDay: (state, payload) => {
-    function newPrice (price) {
-      let num = Math.floor(Math.random() * 30 + 1)
-      let op = Math.floor(Math.random() * 2)
-      if (price - num < 0) {
-        return price + num
-      }
-      switch (op) {
-        case 0 : return price + num
-        case 1 : return price - num
-      }
-    }
-    state.allStocks.forEach(x => { x.price = newPrice(x.price) })
+    state.allStocks.forEach(x => { x.price = Math.round(x.price * (1 + Math.random() - 0.5)) })
   }
 }
 
