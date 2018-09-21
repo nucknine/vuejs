@@ -1,19 +1,17 @@
 <template>
   <div>
-    <div class="panel panel-default">
-      <div class="panel-body">
-        <h2>Trade or View your Portfolio</h2>
-        <p>You may Save & Load your Data
-          <br>
-          Click on 'End Day' to begin a new Day!
-        </p>
-        <hr>
-        <p>
-          <strong>
-            Your funds {{ funds }}$
-          </strong>
-        </p>
-      </div>
+    <div>
+      <h2>Trade or View your Portfolio</h2>
+      <p>You may Save & Load your Data
+        <br>
+        Click on 'End Day' to begin a new Day!
+      </p>
+      <hr>
+      <p>
+        <strong>
+          Your funds {{ funds | funds-filter }}
+        </strong>
+      </p>
     </div>
   </div>
 </template>

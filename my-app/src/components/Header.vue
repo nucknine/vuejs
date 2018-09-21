@@ -18,10 +18,9 @@
         <router-link :to="{name: 'portfolio'}" active-class="active" tag="li" exact><a>Portfolio<span class="sr-only">(current)</span></a></router-link>
         <router-link :to="{name: 'stocks'}" active-class="active" tag="li" exact><a>Stocks</a></router-link>
       </ul>
-      <p class="navbar-text navbar-right" style="font-weight: bold">Funds: {{ funds }}$</p>
+      <p class="navbar-text navbar-right" style="font-weight: bold">Funds: {{ funds | funds-filter }}</p>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#" @click.prevent="endDay(1)">End Day</a></li>
-
+        <li><a href="#" @click.prevent="endDay">End Day</a></li>
         <li class="dropdown">
           <a
             href="#"

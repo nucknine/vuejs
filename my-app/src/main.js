@@ -11,6 +11,10 @@ Vue.config.productionTip = false
 
 Vue.http.options.root = 'https://vuejs-http-bfa8c.firebaseio.com/'
 
+Vue.filter('funds-filter', function (val) {
+  return '$' + val.toLocaleString()
+})
+
 const router = new VueRouter({
   routes,
   mode: 'history'

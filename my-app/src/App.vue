@@ -19,6 +19,9 @@ export default {
       msg: 'hello'
     }
   },
+  created () {
+    this.$store.dispatch('setStocksAsync')
+  },
   components: {
     appHeader: Header
   }

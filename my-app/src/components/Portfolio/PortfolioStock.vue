@@ -1,24 +1,27 @@
 <template>
-  <div class="col-sm-12 col-md-6">
+  <div class="col-sm-12 col-md-4">
       <div class="panel panel-info">
         <div class="panel-heading">
           <strong>
               {{ stock.name }}
           </strong>
-          (Price: {{ price }} | Quantity: {{ stock.quantity }})
+          <small>
+            (Price: {{ price }} | Quantity: {{ stock.quantity }})
+          </small>
         </div>
         <div class="panel-body">
-          <div class="row">
-            <div class="col-sm-12 col-md-4">
-              <input
-                type="text"
-                class="form-control"
-                placeholder="Quantity"
-                v-model="quantity">
-            </div>
-            <div class="col-sm-12 col-md-offset-6 col-md-2">
-              <button @click="sellStocks" class="btn btn-default btn-danger">Sell</button>
-            </div>
+          <div class="pull-left">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Quantity"
+              v-model="quantity">
+          </div>
+          <div class="pull-right">
+            <button
+              @click="sellStocks"
+              :disabled="quantity <= 0 || !Number.isInteger(quantity * 1)"
+              class="btn btn-default btn-danger">Sell</button>
           </div>
         </div>
       </div>
@@ -35,7 +38,9 @@ export default {
     }
   },
   methods: {
-    ...mapActions({}),
+    ...mapActions([
+      'sellStocksAsync'
+    ]),
     sellStocks () {
       if (this.quantity === 0) {
         return
@@ -45,7 +50,7 @@ export default {
         stockName: this.stock.name,
         stockQuantity: this.quantity
       }
-      this.$store.dispatch('sellStocksAsync', payload)
+      this.sellStocksAsync(payload)
       this.quantity = 1
     }
   }
