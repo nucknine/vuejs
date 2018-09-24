@@ -1,7 +1,6 @@
 const state = {
   user: {
     funds: 10000,
-    name: 'user',
     stocks: []
   }
 }

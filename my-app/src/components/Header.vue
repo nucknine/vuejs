@@ -12,7 +12,8 @@
       </ul>
       <strong class="navbar-text navbar-right">Funds: {{ funds | funds-filter }}</strong>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#" @click.prevent="endDay">End Day</a></li>
+        <router-link :to="{name: 'signin'}" tag="li"><a>Sign in</a></router-link>
+        <router-link :to="{name: 'signup'}" tag="li"><a>Sign up</a></router-link>
         <li
           class="dropdown"
           :class="{open: isDropdownOpen}"
@@ -23,8 +24,9 @@
             data-toggle="dropdown"
             role="button"
             aria-haspopup="true"
-            aria-expanded="false">Save & Load<span class="caret"></span></a>
+            aria-expanded="false">Options<span class="caret"></span></a>
           <ul class="dropdown-menu">
+            <li><a href="#" @click.prevent="endDay">End Day</a></li>
             <li><a href="#" @click.prevent="saveData">Save Data</a></li>
             <li><a href="#" @click.prevent="loadData">Load Data</a></li>
           </ul>
