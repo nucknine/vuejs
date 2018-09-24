@@ -37,11 +37,12 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
+import axios from 'axios'
 
 export default {
   data () {
     return {
-      resource: {},
+      // resource: {},
       isDropdownOpen: false
     }
   },
@@ -65,7 +66,11 @@ export default {
         userStocks: this.userStocks,
         allStocks: this.allStocks
       }
-      this.resource.update(data).then((res, err) => {
+      // this.resource.update(data).then((res, err) => {
+      //   console.log(err)
+      // })
+      axios.put('data.json', data).then((res, err) => {
+        console.log(res)
         console.log(err)
       })
     },
@@ -74,7 +79,7 @@ export default {
     }
   },
   created () {
-    this.resource = this.$resource('data.json')
+    // this.resource = this.$resource('data.json')
   }
 }
 </script>
